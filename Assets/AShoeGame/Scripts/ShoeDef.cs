@@ -2,8 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum ShoeType
+{
+    Male01,
+    Male02,
+    Male03,
+    Female01,
+    Female02,
+    Female03
+}
+
 public class ShoeDef : MonoBehaviour
 {
+
     public Collider Coll;
 
     // idea here is the NPC would Instantiate a copy of this shoe, set IsNpcCopy=true, and attach it to their foot. we probably only need the collider, def not the grabbable...
@@ -12,9 +24,15 @@ public class ShoeDef : MonoBehaviour
     Rigidbody rb;
     CallenVrGrabbable grab;
 
+    public ShoeType Type;
+    public bool FootOnShoe;
+    public bool BareFootShoe;
+    [SerializeField] ParticleSystem successfulParticle;
+    [SerializeField] ParticleSystem unsuccessfulParticle;
+
     void Awake()
     {
-        if(IsNpcCopy)
+        if (IsNpcCopy)
         {
             if ((rb = GetComponent<Rigidbody>()) && rb.isKinematic) Debug.LogWarning("Kinematic rigidbody on NPC shoe?");
             if (grab = GetComponent<CallenVrGrabbable>()) Destroy(grab); // no reason for NPC shoe to be grabbable, instead of logging, just Destroy it
@@ -27,7 +45,7 @@ public class ShoeDef : MonoBehaviour
         if (!Coll)
         {
             // lack of collider emits error, since it's very shoe-specific
-            Debug.LogError("ShoeDef didn't find a collider on gob="+gameObject.name+". creating default capsule.");
+            Debug.LogError("ShoeDef didn't find a collider on gob=" + gameObject.name + ". creating default capsule.");
             Coll = gameObject.AddComponent<CapsuleCollider>();
             (Coll as CapsuleCollider).radius = 0.1f;
             (Coll as CapsuleCollider).height = 0.4f;
@@ -44,10 +62,46 @@ public class ShoeDef : MonoBehaviour
         }
 
         grab = GetComponent<CallenVrGrabbable>();
-        if (!grab)
         {
             grab = gameObject.AddComponent<CallenVrGrabbable>();
             grab.FollowStyle = CallenVrGrabbable.HandFollowType.ParentAttached;
         }
+
+        if (FootOnShoe)
+        {
+            if (grab)
+                Destroy(grab);
+
+            if (rb)
+                Destroy(rb);
+        }
+
+        if (BareFootShoe)
+        {
+            if (Coll)
+                Destroy(Coll);
+        }
+
     }
+
+    public void SuccessfulFit()
+    {
+        if (FootOnShoe)
+            return;
+
+        // TODO add particle effect.  Should be on grabbable shoe though because that will be in player's hand.
+        // TODO stretch add haptic feedback
+        gameObject.SetActive(false);
+        //successfulParticle.Play();
+        Destroy(this, 5f);
+    }
+
+    public void UnSuccessfulFit()
+    {
+        if (FootOnShoe)
+            return;
+        // TODO add angry response
+        //unsuccessfulParticle.Play();
+    }
+
 }
