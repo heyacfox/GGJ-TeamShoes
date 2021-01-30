@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &89866304732693545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 89866304732693548}
+  - component: {fileID: 89866304732693551}
+  - component: {fileID: 89866304732693550}
+  m_Layer: 0
+  m_Name: SHOES_GALORE
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &89866304732693548
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89866304732693545}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.15, y: 0.4, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &89866304732693551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89866304732693545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba96e2877ae171b41bc1233793cb364e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlassSlipperShoe: {fileID: 142597899311763082, guid: 0f1bbd5144696994a90a342273ce3c8c,
+    type: 3}
+  AllShoes:
+  - {fileID: 2023872825116301351, guid: 045722eb7fbb2b14fb3bbb135bcd9d78, type: 3}
+  - {fileID: -1412515628796359990, guid: 6c33ef19c9fa3b348b4190c2ae32183e, type: 3}
+--- !u!114 &89866304732693550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89866304732693545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac819491cb7c9b043985945a6ae9260f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Depth: 7
+  Spacing: {x: 0.3, y: 0.13, z: 0.2}

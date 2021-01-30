@@ -65,6 +65,7 @@ public class ShoeDef : MonoBehaviour
         {
             grab = gameObject.AddComponent<CallenVrGrabbable>();
             grab.FollowStyle = CallenVrGrabbable.HandFollowType.ParentAttached;
+            grab.ForceNonKinematicOnRelease = true;
         }
 
         if (FootOnShoe)

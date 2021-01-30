@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,6 +38,7 @@ public class ShoeStackManager : MonoBehaviour
             rebuildStack(true);
         else if (Spacing != lastSpacing)
             rebuildStack(false);
+        lastSpacing = Spacing;
     }
 
     private void rebuildStack(bool depthChange)
@@ -57,8 +57,12 @@ public class ShoeStackManager : MonoBehaviour
                         var shoePrefab = getNextShoe(i, j, k);
                         shoes[i, j, k] = Instantiate(shoePrefab, transform);
                         shoes[i, j, k].gameObject.name = shoePrefab.name + " - " + i + "," + j + "," + k;
-                        var debug = shoes[i, j, k].GetComponent<DebugShoeLoose>();
-                        if (debug) debug.Stack = this;
+                        shoes[i, j, k].transform.localRotation *= Quaternion.Euler(0, Random.value < 0.5f ? -90 : 90, 0);
+                        shoes[i, j, k].GetComponent<Rigidbody>().isKinematic = true;
+                        var debug = shoes[i, j, k].gameObject.AddComponent<ShoeLooseMonitor>();
+                        debug.Stack = this;
+                        int ii = i, jj = j, kk = k;
+                        StartCoroutine(finishGrabLogic(i, j, k));
                     }
 
         }
@@ -100,6 +104,22 @@ public class ShoeStackManager : MonoBehaviour
                 return false;
         }
         return shoes[i, j, k] == null || shoes[i, j, k] == testShoe;
+    }
+
+    IEnumerator finishGrabLogic(int i, int j, int k)
+    {
+        yield return null;
+        var grab = shoes[i, j, k].GetComponent<CallenVrGrabbable>();
+        try
+        {
+            if (grab.OnGrab == null) grab.OnGrab = new UnityEngine.Events.UnityEvent();
+            grab.OnGrab.AddListener(delegate () { shoes[i, j, k] = null; });
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError(ex);
+        }
+
     }
 
 }

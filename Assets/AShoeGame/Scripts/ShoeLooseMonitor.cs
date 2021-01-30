@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DebugShoeLoose : MonoBehaviour
+public class ShoeLooseMonitor : MonoBehaviour
 {
     internal ShoeStackManager Stack;
 
@@ -12,7 +12,7 @@ public class DebugShoeLoose : MonoBehaviour
 
     private void Awake()
     {
-        startColor = GetComponent<MeshRenderer>().material.color;   
+        startColor = GetComponentInChildren<MeshRenderer>().material.color;   
     }
 
     void Update()
@@ -29,8 +29,11 @@ public class DebugShoeLoose : MonoBehaviour
 
         bool isLoose = Stack.IsShoeLoose(shoe);
 
-        var rend = GetComponent<MeshRenderer>();
+        var rend = GetComponentInChildren<MeshRenderer>();
         rend.material.color = isLoose ? startColor : Color.Lerp(startColor, Color.red, 0.5f);
+
+        var grab = GetComponent<CallenVrGrabbable>();
+        if (grab) grab.enabled = isLoose;
         
     }
 }
