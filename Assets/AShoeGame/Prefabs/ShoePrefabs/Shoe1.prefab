@@ -45,6 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8749ea5b814039e48850396b1eb3043a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Coll: {fileID: 0}
+  Type: 0
+  FootOnShoe: 0
+  BareFootShoe: 0
+  successfulParticle: {fileID: 0}
+  unsuccessfulParticle: {fileID: 0}
 --- !u!136 &2023872825116301348
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -125,6 +131,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: shoe1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4062951860192998597, guid: 10574b38a66bafd4a869ed7e648b993b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10574b38a66bafd4a869ed7e648b993b, type: 3}

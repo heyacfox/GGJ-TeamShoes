@@ -49,6 +49,7 @@ MonoBehaviour:
   AllShoes:
   - {fileID: 2023872825116301351, guid: 045722eb7fbb2b14fb3bbb135bcd9d78, type: 3}
   - {fileID: -1412515628796359990, guid: 6c33ef19c9fa3b348b4190c2ae32183e, type: 3}
+  - {fileID: -8508370111290771875, guid: 9d2d748f420e04e4cb653d9c3fb94ff8, type: 3}
 --- !u!114 &89866304732693550
 MonoBehaviour:
   m_ObjectHideFlags: 0
