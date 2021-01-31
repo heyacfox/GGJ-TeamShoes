@@ -1543,7 +1543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ReportConnected: 0
   ReportMounted: 0
-  DestroyPrevious: 0
+  DestroyPrevious: 1
   UseOvrVelocity: 0
 --- !u!4 &320999135
 Transform:
