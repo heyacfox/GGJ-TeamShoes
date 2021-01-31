@@ -71,5 +71,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac819491cb7c9b043985945a6ae9260f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Depth: 7
-  Spacing: {x: 0.3, y: 0.13, z: 0.2}
+  Depth: 5
+  Spacing: {x: 0.45, y: 0.17, z: 0.25}

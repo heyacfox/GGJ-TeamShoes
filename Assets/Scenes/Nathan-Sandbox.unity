@@ -133,11 +133,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SHOES_GALORE
       objectReference: {fileID: 0}
-    - target: {fileID: 89866304732693545, guid: e69bce42bf3ad8543906a484ba4ca278,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 89866304732693548, guid: e69bce42bf3ad8543906a484ba4ca278,
         type: 3}
       propertyPath: m_RootOrder

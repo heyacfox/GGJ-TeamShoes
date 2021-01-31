@@ -8,10 +8,12 @@ public class NpcManager : MonoBehaviour
 
 
     public NpcGenerator CharacterGenerator;
+    public NPCSoundLists npcSoundLists;
 
     Transform[] spawns, dests;
 
     List<NpcController> npcs = new List<NpcController>();
+    
     float spawnCheckDelay = 0;
 
 
@@ -80,6 +82,14 @@ public class NpcManager : MonoBehaviour
         avatar.transform.position = spawns[spawnIndex].position;
         var npc = avatar.gameObject.AddComponent<NpcController>();
         npc.TargetShoe = targetShoe;
+        if (avatar.activeRace.name.Contains("Female"))
+        {
+            npc.setSoundLists(npcSoundLists.askSoundsFemale, npcSoundLists.rewardSoundsFemale);
+        } else
+        {
+            npc.setSoundLists(npcSoundLists.askSoundsMale, npcSoundLists.rewardSoundsMale);
+        }
+        
         npcs.Add(npc);
     }
 

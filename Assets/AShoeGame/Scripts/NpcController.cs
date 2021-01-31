@@ -33,9 +33,14 @@ public class NpcController : MonoBehaviour
     Animator anim;
     Foot foot;
 
+    List<AudioClip> askSounds;
+    List<AudioClip> rewardSounds;
+    AudioSource audioSource;
+
     void Awake()
     {
         nav = gameObject.AddComponent<NavMeshAgent>();
+        audioSource = gameObject.AddComponent<AudioSource>();
         nav.speed = 1.5f;
         nav.angularSpeed = 720f;
         nav.radius = 0.37f;
@@ -74,9 +79,11 @@ public class NpcController : MonoBehaviour
             case States.WaitAtCounter:
                 anim.SetTrigger("LegUp");
                 nav.isStopped = true;
+                audioSource.PlayOneShot(askSounds[UnityEngine.Random.Range(0, askSounds.Count)]);
                 break;
             case States.Success:
                 anim.SetTrigger("LegDown");
+                audioSource.PlayOneShot(rewardSounds[UnityEngine.Random.Range(0, rewardSounds.Count)]);
                 StartCoroutine(leaveAfterDelay(1.5f));
                 break;
             case States.Failure:
@@ -150,6 +157,12 @@ public class NpcController : MonoBehaviour
         box.size = new Vector3(0.08f, 0.06f, 0.3f);
         box.isTrigger = true;
         return foot;
+    }
+
+    public void setSoundLists(List<AudioClip> askSounds, List<AudioClip> rewardSounds)
+    {
+        this.askSounds = askSounds;
+        this.rewardSounds = rewardSounds;
     }
 
 }
