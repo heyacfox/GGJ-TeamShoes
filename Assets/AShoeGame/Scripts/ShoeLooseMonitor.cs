@@ -12,6 +12,7 @@ public class ShoeLooseMonitor : MonoBehaviour
     GameObject blockBox;
     int counter;
     bool isLoose = false;
+    Color blockingColor;
 
     const int BlockBoxFrameDelay = 10;
 
@@ -24,7 +25,11 @@ public class ShoeLooseMonitor : MonoBehaviour
     void Update()
     {
 
-        if (blockBox) blockBox.GetComponent<MeshRenderer>().enabled = false;
+        if (blockBox && !isLoose)
+        {
+            Color c = new Color(blockingColor.r, blockingColor.g, blockingColor.b, 0.15f + 0.25f * 0.5f * (1 + Mathf.Sin(Time.time * 5f)));
+            blockBox.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", c);
+        }
 
         if ((rndTimer -= Time.deltaTime) > 0)
             return;
@@ -43,6 +48,7 @@ public class ShoeLooseMonitor : MonoBehaviour
         if (!isLoose && !blockBox && Stack.BlockingVisual)
         {
             blockBox = Instantiate(Stack.BlockingVisual);
+            blockingColor = blockBox.GetComponent<MeshRenderer>().material.color;
             blockBox.transform.localScale = Stack.Spacing * 0.9f;
             blockBox.transform.parent = transform;
             blockBox.transform.localPosition = Vector3.up * 0.02f;
