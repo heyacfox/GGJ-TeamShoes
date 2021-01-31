@@ -164,7 +164,7 @@ public class NpcManager : MonoBehaviour
 
     public void checkWinCondition()
     {
-        if (Score >= 32)
+        if (Score >= 29)
         {
             //you win
             handTransformerLeft.WinGame();
