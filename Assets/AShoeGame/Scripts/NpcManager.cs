@@ -61,6 +61,8 @@ public class NpcManager : MonoBehaviour
     }
 
     ShoeGameController.RandomShoeBin bin;
+    ShoeDef[] shoeWorldOrder;
+    int index = 0;
 
     // Update is called once per frame
     void Update()
@@ -75,19 +77,23 @@ public class NpcManager : MonoBehaviour
                     npcs.RemoveAt(i--);
 
             int rndOffset = Random.Range(0, spawns.Length);
+            bool spawnedAny = false;
             for (int i = 0; i < spawns.Length; i++)
             {
                 int ii = (i + rndOffset) % spawns.Length;
                 if (shouldSpawn(ii))
                 {
-                    if (bin == null) bin = ShoeGameController.Instance.CreateRandomBin();
-                    var shoe = bin.GetRandomShoe();
+                    //if (bin == null) bin = ShoeGameController.Instance.CreateRandomBin();
+                    //var shoe = bin.GetRandomShoe();
                     //var shoe = ShoeGameController.Instance.AllShoes[Random.Range(0, ShoeGameController.Instance.AllShoes.Length)];
+                    var shoe = shoeWorldOrder[(index++) % shoeWorldOrder.Length];
                     spawnOne(ii, shoe);
+                    spawnedAny = true;
                     break;
                 }
             }
-            spawnCheckDelay = Mathf.Min(1f / SpawnRate.Evaluate(timer), 30); // converts update timer to a 'delay until next spawn', using the anim curve
+            if (spawnedAny)
+                spawnCheckDelay = Mathf.Min(1f / SpawnRate.Evaluate(timer), 30); // converts update timer to a 'delay until next spawn', using the anim curve
         }
     }
 
@@ -125,6 +131,14 @@ public class NpcManager : MonoBehaviour
     {
         if (npcs.Count > 100)
             return false; // circuit breaker if it starts generating too many ppl
+
+        if (shoeWorldOrder == null)
+        {
+            shoeWorldOrder = ShoeGameController.Instance.ShoeStack.GetAllShoesRandom();
+            if (shoeWorldOrder == null)
+                return false;
+        }
+
 
         const float BufferDist = 3;
 

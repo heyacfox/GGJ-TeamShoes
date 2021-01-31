@@ -13,6 +13,8 @@ public class ShoeStackManager : MonoBehaviour
 
     Vector3 lastSpacing = Vector3.zero;
 
+    Dictionary<string, ShoeDef> nameToShoe = new Dictionary<string, ShoeDef>();
+
     public bool IsShoeLoose(ShoeDef shoe)
     {
         for (int i = 0; i < shoes.GetLength(0); i++)
@@ -25,6 +27,56 @@ public class ShoeStackManager : MonoBehaviour
         return true; // didn't find the shoe, so its loose i guess
     }
 
+    public ShoeDef[] GetAllShoesRandom()
+    {
+        if (shoes.GetLength(0) == 0)
+            return null;
+
+        ShoeDef glassShoe = null; // save for end of list
+        ShoeDef firstShoe = null; // 1st shoe is always first returned
+        List<ShoeDef> ret1 = new List<ShoeDef>(); // 2nd thru 5th shoes in one semi-randomized collection
+        List<ShoeDef> ret2 = new List<ShoeDef>(); // remaining shoes fully randomized
+
+        for (int i = shoes.GetLength(0)-1; i >= 0; i--)
+            for (int j = 0; j < shoes.GetLength(1); j++)
+                for (int k = 0; k < shoes.GetLength(2); k++)
+                {
+                    if (!shoes[i, j, k])
+                        continue;
+
+                    if (ShoeGameController.Instance.GlassSlipperShoe && shoes[i, j, k].ShoeName == ShoeGameController.Instance.GlassSlipperShoe.ShoeName)
+                        glassShoe = nameToShoe[shoes[i, j, k].ShoeName];
+                    else if (firstShoe == null)
+                        firstShoe = nameToShoe[shoes[i, j, k].ShoeName];
+                    else if (ret1.Count < 4)
+                        ret1.Add(nameToShoe[shoes[i, j, k].ShoeName]);
+                    else
+                        ret2.Add(nameToShoe[shoes[i, j, k].ShoeName]);
+                }
+
+        //to form the final list, 1. shuffle ret1, 2. insert first shoe, 3. shuffle-append ret2, 4. append glass shoe at end
+        for (int i = 0; i < 20; i++)
+        {
+            int rnd1 = Random.Range(0, ret1.Count);
+            int rnd2 = Random.Range(0, ret1.Count);
+            var temp = ret1[rnd1];
+            ret1[rnd1] = ret1[rnd2];
+            ret1[rnd2] = temp;
+        }
+        
+        if (firstShoe) ret1.Insert(0, firstShoe);
+
+        while(ret2.Count > 0)
+        {
+            int rnd = Random.Range(0, ret2.Count);
+            ret1.Add(ret2[rnd]);
+            ret2.RemoveAt(rnd);
+        }
+
+        if (glassShoe) ret1.Add(glassShoe);
+
+        return ret1.ToArray();
+    }
 
     void Awake()
     {
@@ -82,11 +134,15 @@ public class ShoeStackManager : MonoBehaviour
     private ShoeDef getNextShoe(int i, int j, int k)
     {
         if (Depth > 2 && i == 0 && j == Depth / 2 && k == 0 && ShoeGameController.Instance.GlassSlipperShoe)
+        {
+            nameToShoe[ShoeGameController.Instance.GlassSlipperShoe.ShoeName] = ShoeGameController.Instance.GlassSlipperShoe;
             return ShoeGameController.Instance.GlassSlipperShoe;
+        }
 
         if (bin == null) bin = ShoeGameController.Instance.CreateRandomBin();
-
-        return bin.GetRandomShoe();
+        var ret = bin.GetRandomShoe();
+        nameToShoe[ret.ShoeName] = ret; // save for faster lookups in getallshoesrandom
+        return ret;
         // todo: make this smarter, save ordering, for use with npc generation
         //var allShoes = ShoeGameController.Instance.AllShoes;
         //return allShoes[UnityEngine.Random.Range(0, allShoes.Length)];
