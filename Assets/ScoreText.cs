@@ -13,7 +13,7 @@ public class ScoreText : MonoBehaviour
         if (!text)
             return;
         if (!NpcManager.Instance || NpcManager.Instance.Score == 0)
-            text.text = "Pay: $0.00";
+            text.text = "Tips: $0.00";
         else
         {
             //With a 5 stack: multiply by 25 to get 29 score to 7.25
