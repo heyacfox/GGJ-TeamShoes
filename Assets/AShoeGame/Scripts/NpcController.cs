@@ -41,6 +41,8 @@ public class NpcController : MonoBehaviour
     {
         nav = gameObject.AddComponent<NavMeshAgent>();
         audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.spatialBlend = 1.0f;
+        audioSource.outputAudioMixerGroup = NpcManager.Instance.voiceMixerGroup;
         nav.speed = 1.5f;
         nav.angularSpeed = 720f;
         nav.radius = 0.37f;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 // spawns npcs according to SpawnRate anim curve, tracks game time and score.
 public class NpcManager : MonoBehaviour
@@ -14,6 +15,8 @@ public class NpcManager : MonoBehaviour
 
     public HandTransformer handTransformerLeft;
     public HandTransformer handTransformerRight;
+
+    public AudioMixerGroup voiceMixerGroup;
 
 
     [Header("Max rate, x = Time.time, y = time between spawns"), Tooltip("Max rate, x = Time.time, y = time between spawns")]
@@ -141,7 +144,7 @@ public class NpcManager : MonoBehaviour
 
     public void checkWinCondition()
     {
-        if (Score >= 29)
+        if (Score >= 50)
         {
             //you win
             handTransformerLeft.WinGame();

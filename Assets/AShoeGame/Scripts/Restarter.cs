@@ -9,4 +9,9 @@ public class Restarter : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    public void EndGame()
+    {
+        Application.Quit();
+    }
 }
