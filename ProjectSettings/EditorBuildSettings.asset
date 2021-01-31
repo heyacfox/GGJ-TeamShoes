@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/AShoeGame/gameplay.unity
+    guid: 5d509104f1de10d4abd5f8488638edc1
   m_configObjects: {}
