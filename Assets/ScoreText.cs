@@ -18,7 +18,7 @@ public class ScoreText : MonoBehaviour
         {
             //With a 5 stack: multiply by 25 to get 29 score to 7.25
             //with a 6 stack, multiply by 14.5 to get all 50 score
-            int scoreToCents = (int) (NpcManager.Instance.Score * 14.5f);
+            int scoreToCents = (int) (NpcManager.Instance.Score * 25f);
             decimal moneyAmount = ((decimal)scoreToCents) / 100;
             text.text = string.Format(ScoreFormat, moneyAmount);
             //text.text = string.Format(ScoreFormat, NpcManager.Instance.Score * 25);
