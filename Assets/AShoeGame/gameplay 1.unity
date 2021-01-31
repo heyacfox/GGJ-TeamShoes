@@ -15122,6 +15122,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CustomOVRCameraRig
       objectReference: {fileID: 0}
+    - target: {fileID: 2687716445337005781, guid: 579520f50aa81124f8c0d156f6682e73,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2687716445337301749, guid: 579520f50aa81124f8c0d156f6682e73,
         type: 3}
       propertyPath: m_RootOrder
@@ -15140,7 +15145,7 @@ PrefabInstance:
     - target: {fileID: 2687716445337301749, guid: 579520f50aa81124f8c0d156f6682e73,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.304
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2687716445337301749, guid: 579520f50aa81124f8c0d156f6682e73,
         type: 3}

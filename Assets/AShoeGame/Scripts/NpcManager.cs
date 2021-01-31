@@ -116,7 +116,7 @@ public class NpcManager : MonoBehaviour
     {
         bool maleAllow = targetShoe.Sex != ShoeDef.ShoeSex.FemaleOnly;
         bool femAllow = targetShoe.Sex != ShoeDef.ShoeSex.MaleOnly;
-        var avatar = CharacterGenerator.GenerateCharacter(maleAllow, femAllow);
+        var avatar = CharacterGenerator.GenerateCharacter(maleAllow, femAllow, index >= shoeWorldOrder.Length);
         avatar.gameObject.SetActive(true);
         avatar.transform.position = spawns[spawnIndex].position;
         var npc = avatar.gameObject.AddComponent<NpcController>();

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0188188c253e0c4bb9b46e19fa7312e, type: 3}
   m_Name: BasicGlovesLongF_Recipe
   m_EditorClassIdentifier: 
+  label: 
+  resourcesOnly: 0
   recipeType: Wardrobe
   DisplayValue: BasicGlovesLongF_Slot
   compatibleRaces:
@@ -23,9 +25,12 @@ MonoBehaviour:
   wardrobeSlot: Hands
   Hides:
   - FemaleHands
+  HideTags: []
   suppressWardrobeSlots: []
   activeWardrobeSet: []
   MeshHideAssets:
   - {fileID: 11400000, guid: ff3c7ba3d5667cd4c8bd93100887744c, type: 2}
-  recipeString: '{"version":3,"packedSlotDataList":[],"slotsV2":[],"slotsV3":[{"id":"BasicGlovesLongF","scale":100,"copyIdx":-1,"overlays":[{"id":"BasicGlovesLongF_Overlay","colorIdx":0,"rect":[0,0,0,0]}]}],"colors":[],"fColors":[{"name":"-","colors":[255,255,255,255,0,0,0,0,255,255,255,255,0,0,0,0,255,255,255,255,0,0,0,0]}],"sharedColorCount":0,"race":"","packedDna":[]}'
+  recipeString: '{"version":3,"packedSlotDataList":[],"slotsV2":[],"slotsV3":[{"id":"BasicGlovesLongF","scale":100,"copyIdx":-1,"overlays":[{"id":"BasicGlovesLongF_Overlay","colorIdx":0,"rect":[0.0,0.0,0.0,0.0],"isTransformed":false,"scale":{"x":0.0,"y":0.0,"z":0.0},"rotation":0.0}],"Tags":[],"Races":[]}],"colors":[],"fColors":[{"name":"Gloves","colors":[255,255,255,255,0,0,0,0,255,255,255,255,0,0,0,0,255,255,255,255,0,0,0,0],"ShaderParms":[]}],"sharedColorCount":1,"race":"","packedDna":[]}'
+  IncompatibleRecipes: []
+  UserField: 
   replaces: Nothing

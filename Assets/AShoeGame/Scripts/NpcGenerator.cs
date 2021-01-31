@@ -10,6 +10,10 @@ public class NpcGenerator : MonoBehaviour
     [Header("Searches for all avatars as children of these"), Tooltip("Searches for all avatars as children of these")]
     public Transform[] CharacterSources;
 
+    [Header("Final NPC for Glass Shoe")]
+    public DynamicCharacterAvatar LastNpc;
+
+
     readonly List<DynamicCharacterAvatar> chars = new List<DynamicCharacterAvatar>();
 
     private void Awake()
@@ -27,8 +31,13 @@ public class NpcGenerator : MonoBehaviour
         }
     }
 
-    public DynamicCharacterAvatar GenerateCharacter(bool maleAllowed, bool femaleAllowed)
+    public DynamicCharacterAvatar GenerateCharacter(bool maleAllowed, bool femaleAllowed, bool isLast = false)
     {
+        if(isLast && LastNpc)
+        {
+            return LastNpc;
+        }
+
         DynamicCharacterAvatar ret = null;
         for (int i = 0; i < 10; i++)
         {
