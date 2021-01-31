@@ -19,8 +19,11 @@ public class NpcManager : MonoBehaviour
     public AudioMixerGroup voiceMixerGroup;
 
 
-    [Header("Max rate, x = Time.time, y = time between spawns"), Tooltip("Max rate, x = Time.time, y = time between spawns")]
+    [Header("Max spawn rate, x = Time.time, y = time between spawns"), Tooltip("Max rate, x = Time.time, y = time between spawns")]
     public AnimationCurve SpawnRate = AnimationCurve.Linear(0, 1, 300, 1);
+
+    [Header("Movement speed by time for NPCs")]
+    public AnimationCurve MoveSpeed = AnimationCurve.Linear(0, 1, 300, 1);
 
     [Header("Particle Prefabs")]
     public ParticleSystem ParticleSuccess;
@@ -64,6 +67,8 @@ public class NpcManager : MonoBehaviour
     }
 
     ShoeGameController.RandomShoeBin bin;
+    ShoeDef[] shoeWorldOrder;
+    int index = 0;
 
     // Update is called once per frame
     void Update()
@@ -78,19 +83,23 @@ public class NpcManager : MonoBehaviour
                     npcs.RemoveAt(i--);
 
             int rndOffset = Random.Range(0, spawns.Length);
+            bool spawnedAny = false;
             for (int i = 0; i < spawns.Length; i++)
             {
                 int ii = (i + rndOffset) % spawns.Length;
                 if (shouldSpawn(ii))
                 {
-                    if (bin == null) bin = ShoeGameController.Instance.CreateRandomBin();
-                    var shoe = bin.GetRandomShoe();
+                    //if (bin == null) bin = ShoeGameController.Instance.CreateRandomBin();
+                    //var shoe = bin.GetRandomShoe();
                     //var shoe = ShoeGameController.Instance.AllShoes[Random.Range(0, ShoeGameController.Instance.AllShoes.Length)];
+                    var shoe = shoeWorldOrder[(index++) % shoeWorldOrder.Length];
                     spawnOne(ii, shoe);
+                    spawnedAny = true;
                     break;
                 }
             }
-            spawnCheckDelay = Mathf.Min(1f / SpawnRate.Evaluate(timer), 30); // converts update timer to a 'delay until next spawn', using the anim curve
+            if (spawnedAny)
+                spawnCheckDelay = Mathf.Min(1f / SpawnRate.Evaluate(timer), 30); // converts update timer to a 'delay until next spawn', using the anim curve
         }
     }
 
@@ -112,6 +121,7 @@ public class NpcManager : MonoBehaviour
         avatar.transform.position = spawns[spawnIndex].position;
         var npc = avatar.gameObject.AddComponent<NpcController>();
         npc.TargetShoe = targetShoe;
+        npc.ChangeSpeed(Mathf.Clamp(MoveSpeed.Evaluate(timer), 0.2f, 20));
         if (avatar.activeRace.name.Contains("Female"))
         {
             npc.setSoundLists(npcSoundLists.askSoundsFemale, npcSoundLists.rewardSoundsFemale);
@@ -128,6 +138,14 @@ public class NpcManager : MonoBehaviour
     {
         if (npcs.Count > 100)
             return false; // circuit breaker if it starts generating too many ppl
+
+        if (shoeWorldOrder == null)
+        {
+            shoeWorldOrder = ShoeGameController.Instance.ShoeStack.GetAllShoesRandom();
+            if (shoeWorldOrder == null)
+                return false;
+        }
+
 
         const float BufferDist = 3;
 

@@ -10,6 +10,7 @@ public class ShoeGameController : MonoBehaviour
     public ShoeDef GlassSlipperShoe;
     public ShoeDef[] AllShoes;
 
+    public ShoeStackManager ShoeStack;
 
     public RandomShoeBin CreateRandomBin()
     {
@@ -20,7 +21,7 @@ public class ShoeGameController : MonoBehaviour
     void Awake()
     {
         Instance = this;
-
+        if (!ShoeStack) ShoeStack = GetComponent<ShoeStackManager>();
     }
 
     // Update is called once per frame
