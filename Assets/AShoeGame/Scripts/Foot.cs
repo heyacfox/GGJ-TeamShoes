@@ -27,30 +27,56 @@ public class Foot : MonoBehaviour
         {
             visualShoe = Instantiate(TargetShoe, OtherFoot);
             visualShoe.transform.localPosition = new Vector3(-0.132f, 0, 0.028f);
-            visualShoe.transform.localRotation = Quaternion.Euler(0, 70, -90);
+            visualShoe.transform.localRotation *= Quaternion.Euler(0, 70, -90);
         }
     }
 
     void OnTriggerEnter(Collider c)
     {
+        if (Complete)
+            return;
+
         var shoe = c.gameObject.GetComponent<ShoeDef>();
         if (shoe)
         {
-            //if (shoe.FootOnShoe)
-            //    return;
-
-            // If the other shoe is our type
-            if (shoe.ShoeName == TargetShoe.name)
-            {
-                Complete = true;
-                Success = true;
-            }
-            else
-                Complete = true;
+            complete(shoe);
         }
 
     }
 
+    void complete(ShoeDef otherShoe)
+    {
+        Complete = true;
+        Success = otherShoe.ShoeName == TargetShoe.name;
 
+        GameObject particles = null;
+
+        if (Success)
+        {
+            NpcManager.Instance.Score++;
+            particles = Instantiate(NpcManager.Instance.ParticleSuccess, transform.position, Quaternion.identity).gameObject;
+            StartCoroutine(xferShoe(otherShoe));
+        }
+        else
+        {
+            particles = Instantiate(NpcManager.Instance.ParticleFailure, transform.position, Quaternion.identity).gameObject;
+            var grab = otherShoe.GetComponent<CallenVrGrabbable>();
+            var rb = otherShoe.GetComponent<Rigidbody>();
+            if (grab) grab.Release();
+            if (rb) rb.AddForce(new Vector3(0, 4, -7));
+        }
+
+        Destroy(particles, 5);
+    }
+
+    IEnumerator xferShoe(ShoeDef s)
+    {
+        s.State = ShoeDef.ShoeState.OnNpcTargetFoot;
+        yield return null;
+        yield return null;
+        s.transform.parent = transform;
+        s.transform.localPosition = new Vector3(-0.132f, 0, 0.028f);
+        s.transform.localRotation = TargetShoe.transform.localRotation * Quaternion.Euler(0, 70, -90);        
+    }
 
 }

@@ -38,8 +38,7 @@ public class ShoeDef : MonoBehaviour
     public ShoeSex Sex = ShoeSex.Any;
     public ShoeState State = ShoeState.None;
 
-    [Header("If blank, uses gameObject.name")]
-    public string ShoeName;
+    public string ShoeName { get { return gameObject.name.Replace("(Clone)", ""); } }
 
 
     Rigidbody rb;
@@ -55,10 +54,6 @@ public class ShoeDef : MonoBehaviour
     void Awake()
     {
         State = ShoeState.None;
-
-        if (string.IsNullOrEmpty(ShoeName))
-            ShoeName = gameObject.name;
-
 
         //if (IsNpcCopy)
         //{
@@ -122,6 +117,7 @@ public class ShoeDef : MonoBehaviour
             setupGrab(userInteractive);
             setupCollider(userInteractive);
             setupRigidbody(userInteractive);
+            gameObject.layer = userInteractive ? LayerMask.NameToLayer("Shoe") : 0;
         }
     }
 

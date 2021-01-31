@@ -56,7 +56,7 @@ public class ShoeStackManager : MonoBehaviour
                     {
                         var shoePrefab = getNextShoe(i, j, k);
                         shoes[i, j, k] = Instantiate(shoePrefab, transform);
-                        shoes[i, j, k].gameObject.name = shoePrefab.name + " - " + i + "," + j + "," + k;
+                        shoes[i, j, k].gameObject.name = shoePrefab.name;
                         shoes[i, j, k].transform.localRotation *= Quaternion.Euler(0, Random.value < 0.5f ? -90 : 90, 0);
                         shoes[i, j, k].State = ShoeDef.ShoeState.OnStack;
                         StartCoroutine(finishSetup(i, j, k));
@@ -77,14 +77,19 @@ public class ShoeStackManager : MonoBehaviour
         return Vector3.Scale(Spacing, new Vector3(x, y, z));
     }
 
+    ShoeGameController.RandomShoeBin bin;
+
     private ShoeDef getNextShoe(int i, int j, int k)
     {
         if (Depth > 2 && i == 0 && j == Depth / 2 && k == 0 && ShoeGameController.Instance.GlassSlipperShoe)
             return ShoeGameController.Instance.GlassSlipperShoe;
 
+        if (bin == null) bin = ShoeGameController.Instance.CreateRandomBin();
+
+        return bin.GetRandomShoe();
         // todo: make this smarter, save ordering, for use with npc generation
-        var allShoes = ShoeGameController.Instance.AllShoes;
-        return allShoes[UnityEngine.Random.Range(0, allShoes.Length)];
+        //var allShoes = ShoeGameController.Instance.AllShoes;
+        //return allShoes[UnityEngine.Random.Range(0, allShoes.Length)];
     }
 
     private bool testIsLoose(ShoeDef testShoe, int i, int j, int k)

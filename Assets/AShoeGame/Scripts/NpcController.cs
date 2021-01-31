@@ -52,9 +52,9 @@ public class NpcController : MonoBehaviour
 
     void Start()
     {
-        startPos = transform.position;
         anim = GetComponentInChildren<Animator>();
-        GetComponent<DynamicCharacterAvatar>().ForceUpdate(true, true, true);
+        startPos = transform.position;
+        //GetComponent<DynamicCharacterAvatar>().ForceUpdate(true, true, true);
     }
 
     void Update()
@@ -88,7 +88,7 @@ public class NpcController : MonoBehaviour
                 break;
             case States.Failure:
                 anim.SetTrigger("LegDown");
-                StartCoroutine(leaveAfterDelay(1.8f));
+                StartCoroutine(leaveAfterDelay(1.7f));
                 break;
             case States.Leaving:
                 nav.SetDestination(startPos);
@@ -110,15 +110,21 @@ public class NpcController : MonoBehaviour
                     State = States.Approaching;
                 break;
             case States.Approaching:
+
+                updateNavRad(startPos);
+
                 if ((transform.position - nav.destination).sqrMagnitude < 0.05f || (!nav.pathPending && nav.isStopped))
                     State = States.WaitAtCounter;
                 break;
             case States.WaitAtCounter:
+                updateNavRad(transform.position);
+                transform.position = OccupiedDestination.position;
+
+                transform.LookAt(Vector3.left * 0.5f);
                 if (!foot) foot = GetComponentInChildren<Foot>();
                 if(foot && foot.Complete)
                 {
                     State = foot.Success ? States.Success : States.Failure;
-                    foot.enabled = false;
                     nav.isStopped = false;
                 }
                 break;
@@ -127,8 +133,14 @@ public class NpcController : MonoBehaviour
             case States.Failure:
                 break;
             case States.Leaving:
+                
+                updateNavRad(Vector3.forward);
+
                 if ((transform.position - nav.destination).sqrMagnitude < 0.05f || (!nav.pathPending && nav.isStopped))
+                {
+                    Debug.Log("NPC done. gob=" + gameObject.name + ", start=" + startPos + ", pos=" + transform.position + ", nav=" + nav.destination + ", pathpend=" + nav.pathPending + ", pathStop=" + nav.isStopped);
                     State = States.Done;
+                }
                 break;
             case States.Done:
                 break;
@@ -137,9 +149,26 @@ public class NpcController : MonoBehaviour
         }
     }
 
+    float lastRad = -1;
+
+    void updateNavRad(Vector3 startPoint)
+    {
+        Vector3 posDelta = (transform.position - nav.destination);
+        Vector3 startDelta = (transform.position - startPoint);
+        Vector3 minDelta = posDelta.sqrMagnitude < startDelta.sqrMagnitude ? posDelta : startDelta;
+        float rad = Mathf.Clamp(minDelta.magnitude / 5, 0.15f, 0.75f);
+        if (rad != lastRad) nav.radius = rad;
+        lastRad = rad;
+    }
+
     IEnumerator leaveAfterDelay(float secs)
     {
         yield return new WaitForSeconds(secs);
+
+        nav.SetDestination(startPos);
+        while ((transform.position - OccupiedDestination.position).sqrMagnitude < 1)
+            yield return null;
+        OccupiedDestination = null;
         State = States.Leaving;
     }
 
@@ -154,7 +183,7 @@ public class NpcController : MonoBehaviour
         var foot = left.gameObject.AddComponent<Foot>();
         foot.OtherFoot = right;
         var box = left.gameObject.AddComponent<BoxCollider>();
-        box.size = new Vector3(0.08f, 0.06f, 0.3f);
+        box.size = new Vector3(0.5f, 0.15f, 0.25f);
         box.isTrigger = true;
         return foot;
     }

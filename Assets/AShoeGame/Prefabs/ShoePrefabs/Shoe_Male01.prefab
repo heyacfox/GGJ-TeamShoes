@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &450810687195933219
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6404278960267088584}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6404278960267088584
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450810687195933219}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.043252755, y: 0.05837876, z: 0.06436598}
+  m_Children:
+  - {fileID: 8363608369061317579}
+  m_Father: {fileID: 2394961435734944414}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &3059998103442419748
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,8 +41,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2394961435734944414}
   - component: {fileID: -1412515628796359990}
-  - component: {fileID: 919132149568514292}
-  - component: {fileID: 919132149568514291}
   - component: {fileID: 2483795022361402803}
   m_Layer: 0
   m_Name: Shoe_Male01
@@ -27,14 +56,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3059998103442419748}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.628, y: 0.189, z: 0.37}
-  m_LocalScale: {x: 0.043252755, y: 0.05837876, z: 0.06436598}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8363608369061317579}
+  - {fileID: 6404278960267088584}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-1412515628796359990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,53 +77,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Coll: {fileID: 0}
-  Type: 0
-  FootOnShoe: 0
-  BareFootShoe: 0
-  successfulParticle: {fileID: 0}
-  unsuccessfulParticle: {fileID: 0}
---- !u!114 &919132149568514292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3059998103442419748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1016aac1519ecd545aadbb6551f5891d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FollowStyle: 0
-  HandsAllowed: 0
-  ReleaseVelocityMultiplier: 1
-  ReleaseSpinMultiplier: 1
-  ExcludeChildren: 0
-  ForceNonKinematicOnGrab: 0
-  ForceNonKinematicOnRelease: 0
-  OnGrabSfx: {fileID: 0}
-  OnGrab:
-    m_PersistentCalls:
-      m_Calls: []
-  OnRelease:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!54 &919132149568514291
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3059998103442419748}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  Sex: 0
+  State: 0
 --- !u!65 &2483795022361402803
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -106,7 +90,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8, y: 2, z: 2}
+  m_Size: {x: 0.15, y: 0.13, z: 0.33}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4494916103691642527
 GameObject:
@@ -133,13 +117,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4494916103691642527}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.869, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2394961435734944414}
+  m_Father: {fileID: 6404278960267088584}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6991606736995246633
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -136,8 +136,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc247cf5d1502945999d3d747c62d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Score: 0
   CharacterGenerator: {fileID: 3913440211622293951}
   npcSoundLists: {fileID: 11400000, guid: 1967ae80078c8584a91946c04cfb49dd, type: 2}
+  SpawnRate:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.06
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 29.918257
+      value: 0.2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.34113556
+    - serializedVersion: 3
+      time: 66.7422
+      value: 1.9580976
+      inSlope: 0.004884072
+      outSlope: 0.004884072
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.22186752
+    - serializedVersion: 3
+      time: 200.8291
+      value: 3.432053
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 300
+      value: 5
+      inSlope: 0.00030569927
+      outSlope: 0.00030569927
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2899471
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  ParticleSuccess: {fileID: 5398970600789161677, guid: 7f09d5bb37bee5745b331376093f1f01,
+    type: 3}
+  ParticleFailure: {fileID: 4933318778725141574, guid: 14a84868ceba23649a2552106fdb9b4c,
+    type: 3}
 --- !u!114 &3913440211622293951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,7 +301,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7317694189525619170}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.9, y: 0, z: 1.7}
+  m_LocalPosition: {x: 0.9, y: 0, z: 1.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 793468821966511767}
@@ -275,7 +331,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7953391567558325183}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.9, y: 0, z: 1.7}
+  m_LocalPosition: {x: -0.9, y: 0, z: 1.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 793468821966511767}
@@ -305,7 +361,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8446740496357486954}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.7}
+  m_LocalPosition: {x: 0, y: 0, z: 1.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 793468821966511767}

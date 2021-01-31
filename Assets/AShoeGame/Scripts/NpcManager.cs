@@ -2,20 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// spawns npcs according to SpawnRate anim curve, tracks game time and score.
 public class NpcManager : MonoBehaviour
 {
     public static NpcManager Instance { get; private set; }
 
+    public int Score = 0;
 
     public NpcGenerator CharacterGenerator;
     public NPCSoundLists npcSoundLists;
+
+
+    [Header("Max rate, x = Time.time, y = time between spawns"), Tooltip("Max rate, x = Time.time, y = time between spawns")]
+    public AnimationCurve SpawnRate = AnimationCurve.Linear(0, 1, 300, 1);
+
+    [Header("Particle Prefabs")]
+    public ParticleSystem ParticleSuccess;
+    public ParticleSystem ParticleFailure;
 
     Transform[] spawns, dests;
 
     List<NpcController> npcs = new List<NpcController>();
     
     float spawnCheckDelay = 0;
-
+    float timer = 0;
 
     public Transform FindOpenDestination(NpcController npc)
     {
@@ -47,20 +57,34 @@ public class NpcManager : MonoBehaviour
         dests = getPoints("CounterTargets");
     }
 
+    ShoeGameController.RandomShoeBin bin;
+
     // Update is called once per frame
     void Update()
     {
+        timer += Time.deltaTime;
+
         if((spawnCheckDelay -= Time.deltaTime) < 0)
         {
+            // before trying to spawn, look for completed nav agents to remove from our checks
+            for (int i = 0; i < npcs.Count; i++)
+                if (npcs[i].State == NpcController.States.Done)
+                    npcs.RemoveAt(i--);
+
+            int rndOffset = Random.Range(0, spawns.Length);
             for (int i = 0; i < spawns.Length; i++)
             {
-                if (shouldSpawn(i))
+                int ii = (i + rndOffset) % spawns.Length;
+                if (shouldSpawn(ii))
                 {
-                    var shoe = ShoeGameController.Instance.AllShoes[Random.Range(0, ShoeGameController.Instance.AllShoes.Length)];
-                    spawnOne(i, shoe);
+                    if (bin == null) bin = ShoeGameController.Instance.CreateRandomBin();
+                    var shoe = bin.GetRandomShoe();
+                    //var shoe = ShoeGameController.Instance.AllShoes[Random.Range(0, ShoeGameController.Instance.AllShoes.Length)];
+                    spawnOne(ii, shoe);
+                    break;
                 }
             }
-            spawnCheckDelay = 0.5f;
+            spawnCheckDelay = Mathf.Min(1f / SpawnRate.Evaluate(timer), 30); // converts update timer to a 'delay until next spawn', using the anim curve
         }
     }
 
@@ -96,6 +120,9 @@ public class NpcManager : MonoBehaviour
     // spawn an npc when there are no npcs within 3m of the spawn point
     bool shouldSpawn(int spawnIndex)
     {
+        if (npcs.Count > 100)
+            return false; // circuit breaker if it starts generating too many ppl
+
         const float BufferDist = 3;
 
         var pt = spawns[spawnIndex];
