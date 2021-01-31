@@ -16,8 +16,11 @@ public class NpcManager : MonoBehaviour
     public HandTransformer handTransformerRight;
 
 
-    [Header("Max rate, x = Time.time, y = time between spawns"), Tooltip("Max rate, x = Time.time, y = time between spawns")]
+    [Header("Max spawn rate, x = Time.time, y = time between spawns"), Tooltip("Max rate, x = Time.time, y = time between spawns")]
     public AnimationCurve SpawnRate = AnimationCurve.Linear(0, 1, 300, 1);
+
+    [Header("Movement speed by time for NPCs")]
+    public AnimationCurve MoveSpeed = AnimationCurve.Linear(0, 1, 300, 1);
 
     [Header("Particle Prefabs")]
     public ParticleSystem ParticleSuccess;
@@ -115,6 +118,7 @@ public class NpcManager : MonoBehaviour
         avatar.transform.position = spawns[spawnIndex].position;
         var npc = avatar.gameObject.AddComponent<NpcController>();
         npc.TargetShoe = targetShoe;
+        npc.ChangeSpeed(Mathf.Clamp(MoveSpeed.Evaluate(timer), 0.2f, 20));
         if (avatar.activeRace.name.Contains("Female"))
         {
             npc.setSoundLists(npcSoundLists.askSoundsFemale, npcSoundLists.rewardSoundsFemale);
