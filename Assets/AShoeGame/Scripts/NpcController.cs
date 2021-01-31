@@ -36,14 +36,13 @@ public class NpcController : MonoBehaviour
     List<AudioClip> askSounds;
     List<AudioClip> rewardSounds;
     AudioSource audioSource;
+    float setSpeed = 0;
 
     void Awake()
     {
         nav = gameObject.AddComponent<NavMeshAgent>();
         audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.spatialBlend = 1.0f;
-        audioSource.outputAudioMixerGroup = NpcManager.Instance.voiceMixerGroup;
-        nav.speed = 1.5f;
+        nav.speed = setSpeed = setSpeed > 0 ? setSpeed : 1.5f;
         nav.angularSpeed = 720f;
         nav.radius = 0.37f;
 
@@ -55,6 +54,7 @@ public class NpcController : MonoBehaviour
     void Start()
     {
         anim = GetComponentInChildren<Animator>();
+        anim.SetFloat("WalkSpeed", setSpeed);
         startPos = transform.position;
         //GetComponent<DynamicCharacterAvatar>().ForceUpdate(true, true, true);
     }
@@ -149,6 +149,15 @@ public class NpcController : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    internal void ChangeSpeed(float v)
+    {
+        if (v == setSpeed)
+            return;
+        setSpeed = v;
+        nav.speed = v;
+        if (anim) anim.SetFloat("WalkSpeed", v);
     }
 
     float lastRad = -1;
