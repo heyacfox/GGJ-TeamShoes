@@ -35,7 +35,7 @@ public class NpcGenerator : MonoBehaviour
     {
         if(isLast && LastNpc)
         {
-            return LastNpc;
+            return Instantiate(LastNpc);
         }
 
         DynamicCharacterAvatar ret = null;
