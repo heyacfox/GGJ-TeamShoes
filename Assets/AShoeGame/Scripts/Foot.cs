@@ -12,53 +12,40 @@ public class Foot : MonoBehaviour
     public bool Complete { get; private set; }
     public bool Success { get; private set; }
 
-    //[SerializeField] ShoeType footShoeType;
-    //[SerializeField] List<ShoeDef> shoes;
-
-    // May not be needed but added JIC
-    [SerializeField] GameObject activeShoeOnFoot;
-
     public Collider Coll;
+
+    ShoeDef visualShoe;
 
     void Start()
     {
         if (!Coll) Coll = GetComponent<Collider>();
-
-        // Ensure that the npc doesn't have a foot active on start.
-        //foreach (var shoe in shoes)
-        //    shoe.gameObject.SetActive(false);
     }
 
-    void OnCollisionEnter(Collision collision)
+    private void Update()
     {
-
-        if (collision.gameObject.GetComponent<ShoeDef>())
+        if(!visualShoe && TargetShoe)
         {
-            ShoeDef collShoe = collision.gameObject.GetComponent<ShoeDef>();
+            visualShoe = Instantiate(TargetShoe, OtherFoot);
+            visualShoe.transform.localPosition = new Vector3(-0.132f, 0, 0.028f);
+            visualShoe.transform.localRotation = Quaternion.Euler(0, 70, -90);
+        }
+    }
 
-            if (collShoe.FootOnShoe)
-                return;
+    void OnTriggerEnter(Collider c)
+    {
+        var shoe = c.gameObject.GetComponent<ShoeDef>();
+        if (shoe)
+        {
+            //if (shoe.FootOnShoe)
+            //    return;
 
             // If the other shoe is our type
-            if (collShoe.ShoeName == TargetShoe.name)
+            if (shoe.ShoeName == TargetShoe.name)
             {
-                // Call events on the shoe that the player is holding (e.g. destroy)
-                //collShoe.SuccessfulFit();
                 Complete = true;
                 Success = true;
-
-                // Set the shoe on our foot active
-                //foreach (var shoe in shoes)
-                //{
-                //    if (shoe.Type == footShoeType)
-                //    {
-                //        shoe.gameObject.SetActive(true);
-                //        activeShoeOnFoot = shoe.gameObject;
-                //    }
-                //}
             }
             else
-                //collShoe.UnSuccessfulFit();
                 Complete = true;
         }
 

@@ -3200,7 +3200,7 @@ MonoBehaviour:
       _compatibleRaces:
       - HumanMale
   raceAnimationControllers:
-    defaultAnimationController: {fileID: 9100000, guid: e2cf68ff4b1ffda45a77f7307dd789b9,
+    defaultAnimationController: {fileID: 9100000, guid: 842fdea18b2a1804a82844f683c648a2,
       type: 2}
     animators: []
     dynamicallyAddFromResources: 0
