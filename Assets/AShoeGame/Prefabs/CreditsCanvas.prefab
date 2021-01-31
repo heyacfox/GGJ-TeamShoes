@@ -160,7 +160,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Created By Team Shoe:'
+  m_Text: 'A Game By Team Shoe:'
 --- !u!1 &2232644606520685199
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +242,7 @@ MonoBehaviour:
 
     Nathan Hahn - nhahn.works
 
-    Steve R'
+    Steve Ritter'
 --- !u!1 &3192651764104485773
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,8 +567,8 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 01527531197a741228490aa30bb825d0, type: 3}
     m_FontSize: 40
-    m_FontStyle: 1
-    m_BestFit: 0
+    m_FontStyle: 3
+    m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 4
@@ -577,7 +577,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Toss a Shoe
+  m_Text: Sole Searching
 --- !u!1 &9183249240503406262
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,9 @@ public class NpcManager : MonoBehaviour
     public NpcGenerator CharacterGenerator;
     public NPCSoundLists npcSoundLists;
 
+    public HandTransformer handTransformerLeft;
+    public HandTransformer handTransformerRight;
+
 
     [Header("Max rate, x = Time.time, y = time between spawns"), Tooltip("Max rate, x = Time.time, y = time between spawns")]
     public AnimationCurve SpawnRate = AnimationCurve.Linear(0, 1, 300, 1);
@@ -134,5 +137,20 @@ public class NpcManager : MonoBehaviour
                 return false;
         }
         return true;
+    }
+
+    public void checkWinCondition()
+    {
+        if (Score >= 29)
+        {
+            //you win
+            handTransformerLeft.WinGame();
+            handTransformerRight.WinGame();
+        } else
+        {
+            handTransformerLeft.LoseGame();
+            handTransformerRight.LoseGame();
+            //you lose
+        }
     }
 }

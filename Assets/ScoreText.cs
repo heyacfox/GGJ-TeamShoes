@@ -15,6 +15,6 @@ public class ScoreText : MonoBehaviour
         if (!NpcManager.Instance || NpcManager.Instance.Score == 0)
             text.text = "";
         else
-            text.text = string.Format(ScoreFormat, NpcManager.Instance.Score);
+            text.text = string.Format(ScoreFormat, NpcManager.Instance.Score * 25);
     }
 }

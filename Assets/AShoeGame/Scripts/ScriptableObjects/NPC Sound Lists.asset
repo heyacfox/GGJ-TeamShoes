@@ -25,6 +25,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f75e24877807b834f9e5c5ac305410c4, type: 3}
   - {fileID: 8300000, guid: 2e674dee84310474ca36eb49a0dd05cf, type: 3}
   rewardSoundsMale:
-  - {fileID: 8300000, guid: c293934ac2d9d704caf5ecb4eb823e11, type: 3}
-  - {fileID: 8300000, guid: f86d1b510f7b9b5408b207dc9611e00b, type: 3}
-  - {fileID: 8300000, guid: fe18c073a23927146800c3fca3a12ab3, type: 3}
+  - {fileID: 8300000, guid: 7b20d44de70dcd8448c4ecbbac0f0774, type: 3}
+  - {fileID: 8300000, guid: 8b5c00d7e1b233e4697ea77738dd6710, type: 3}
+  - {fileID: 8300000, guid: 9d6837ffd0e769a44a8a673393bf2c3c, type: 3}

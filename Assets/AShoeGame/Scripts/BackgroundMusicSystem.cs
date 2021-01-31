@@ -7,6 +7,7 @@ public class BackgroundMusicSystem : MonoBehaviour
     [SerializeField] AudioSource mainLoopSource;
     [SerializeField] AudioSource SongVox;
     [SerializeField] AudioSource SongGuitar;
+    [SerializeField] AudioSource finalBell;
     [SerializeField] bool vocalMusicInterrupt = false;
     [SerializeField] float delayForFinalChorus = 180f;
 
@@ -32,11 +33,20 @@ public class BackgroundMusicSystem : MonoBehaviour
             {
                 SongVox.Play();
                 SongGuitar.Play();
-                mainLoopSource.PlayDelayed(SongVox.clip.length);
+                finalBell.PlayDelayed(SongVox.clip.length + 10f);
                 mainLoopSource.loop = true;
+                //Invoke something to end the game here, some kind of score check?
+                Invoke("EndGameSomewhere", finalBell.clip.length + 5.5f);
+                mainLoopSource.PlayDelayed(SongVox.clip.length + finalBell.clip.length + 20f);
                 vocalMusicInterrupt = false;
             }
         }
+    }
+
+    private void EndGameSomewhere()
+    {
+        //Somewhere the end game logic should be called.
+        NpcManager.Instance.checkWinCondition();
     }
 
 }
