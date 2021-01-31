@@ -91,8 +91,6 @@ public class ShoeStackManager : MonoBehaviour
 
     private bool testIsLoose(ShoeDef testShoe, int i, int j, int k)
     {
-        if (testShoe.gameObject.name.Contains("3,1,0"))
-            Debug.Log("here");
         if (i < Depth - 1)
         {  // check layers above until we're at the top
             bool looseA = testIsLoose(testShoe, i + 1, j, k);

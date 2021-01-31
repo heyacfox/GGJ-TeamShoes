@@ -45,12 +45,12 @@ public class NpcGenerator : MonoBehaviour
     {
         var ret = Instantiate(chars[Random.Range(0, chars.Count)]);
         ret.gameObject.SetActive(true);
-        var foot = ret.GetComponentInChildren<Foot>();
-        if (!foot)
-        {
-            Debug.LogError("No foot script found on npc=" + ret.gameObject.name);
-            return force ? ret : null;
-        }
+        //var foot = ret.GetComponentInChildren<Foot>();
+        //if (!foot)
+        //{
+        //    Debug.LogError("No foot script found on npc=" + ret.gameObject.name);
+        //    return force ? ret : null;
+        //}
         bool isFem = ret.activeRace.name.Contains("Female");
         if (m && !isFem) return ret;
         if (f && isFem) return ret;

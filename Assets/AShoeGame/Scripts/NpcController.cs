@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UMA.CharacterSystem;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -23,6 +24,9 @@ public class NpcController : MonoBehaviour
 
     public ShoeDef TargetShoe { get { return foot ? foot.TargetShoe : null; } set { if (foot) foot.TargetShoe = value; } }
 
+
+    const string LeftFootName = "LeftFoot", RightFootName = "RightFoot";
+
     Vector3 startPos;
     States lastState = (States)(-1);
     NavMeshAgent nav;
@@ -34,15 +38,18 @@ public class NpcController : MonoBehaviour
         nav = gameObject.AddComponent<NavMeshAgent>();
         nav.speed = 1.5f;
         nav.angularSpeed = 720f;
+        nav.radius = 0.37f;
 
-        if (!(foot = GetComponentInChildren<Foot>()))
-            Debug.LogError("No foot found on NPC = " + gameObject.name);
+        foot = buildFootScripts();
+
     }
+
 
     void Start()
     {
         startPos = transform.position;
         anim = GetComponentInChildren<Animator>();
+        GetComponent<DynamicCharacterAvatar>().ForceUpdate(true, true, true);
     }
 
     void Update()
@@ -66,6 +73,7 @@ public class NpcController : MonoBehaviour
                 break;
             case States.WaitAtCounter:
                 anim.SetTrigger("LegUp");
+                nav.isStopped = true;
                 break;
             case States.Success:
                 anim.SetTrigger("LegDown");
@@ -104,6 +112,7 @@ public class NpcController : MonoBehaviour
                 {
                     State = foot.Success ? States.Success : States.Failure;
                     foot.enabled = false;
+                    nav.isStopped = false;
                 }
                 break;
             case States.Success:
@@ -126,4 +135,21 @@ public class NpcController : MonoBehaviour
         yield return new WaitForSeconds(secs);
         State = States.Leaving;
     }
+
+    private Foot buildFootScripts()
+    {
+        Transform left = null, right = null;
+        foreach (var tf in GetComponentsInChildren<Transform>())
+        {
+            if (tf.gameObject.name == LeftFootName) left = tf;
+            else if (tf.gameObject.name == RightFootName) right = tf;
+        }
+        var foot = left.gameObject.AddComponent<Foot>();
+        foot.OtherFoot = right;
+        var box = left.gameObject.AddComponent<BoxCollider>();
+        box.size = new Vector3(0.08f, 0.06f, 0.3f);
+        box.isTrigger = true;
+        return foot;
+    }
+
 }

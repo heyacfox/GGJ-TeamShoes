@@ -12,7 +12,7 @@ public class ShoeLooseMonitor : MonoBehaviour
 
     private void Awake()
     {
-        startColor = GetComponentInChildren<MeshRenderer>().material.color;   
+        //startColor = GetComponentInChildren<MeshRenderer>().material.color;   
     }
 
     void Update()
@@ -30,7 +30,7 @@ public class ShoeLooseMonitor : MonoBehaviour
         bool isLoose = Stack.IsShoeLoose(shoe);
 
         var rend = GetComponentInChildren<MeshRenderer>();
-        rend.material.color = isLoose ? startColor : Color.Lerp(startColor, Color.red, 0.5f);
+        //rend.material.color = isLoose ? startColor : Color.Lerp(startColor, Color.red, 0.5f);
 
         var grab = GetComponent<CallenVrGrabbable>();
         if (grab) grab.enabled = isLoose;
