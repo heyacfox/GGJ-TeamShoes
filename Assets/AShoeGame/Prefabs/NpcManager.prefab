@@ -141,6 +141,8 @@ MonoBehaviour:
   npcSoundLists: {fileID: 11400000, guid: 1967ae80078c8584a91946c04cfb49dd, type: 2}
   handTransformerLeft: {fileID: 0}
   handTransformerRight: {fileID: 0}
+  voiceMixerGroup: {fileID: 989248083249913638, guid: 4982806e4ca791a4499720d17c6589a2,
+    type: 2}
   SpawnRate:
     serializedVersion: 2
     m_Curve:
