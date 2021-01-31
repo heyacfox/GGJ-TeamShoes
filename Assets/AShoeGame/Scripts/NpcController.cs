@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UMA.CharacterSystem;
 using UnityEngine;
@@ -37,6 +36,7 @@ public class NpcController : MonoBehaviour
     List<AudioClip> rewardSounds;
     AudioSource audioSource;
     float setSpeed = 0;
+    float navPriTimer = 0;
 
     void Awake()
     {
@@ -68,6 +68,12 @@ public class NpcController : MonoBehaviour
         {
             onStateChanged();
             lastState = State;
+        }
+
+        if ((navPriTimer -= Time.deltaTime) < 0)
+        {
+            nav.avoidancePriority = Random.Range(40, 60);
+            navPriTimer = Random.value * 1.5f;
         }
     }
 
