@@ -33,11 +33,11 @@ public class BackgroundMusicSystem : MonoBehaviour
             {
                 SongVox.Play();
                 SongGuitar.Play();
-                finalBell.PlayDelayed(SongVox.clip.length + 10f);
+                finalBell.PlayDelayed(SongVox.clip.length + 1f);
                 mainLoopSource.loop = true;
                 //Invoke something to end the game here, some kind of score check?
-                Invoke("EndGameSomewhere", finalBell.clip.length + 5.5f);
-                mainLoopSource.PlayDelayed(SongVox.clip.length + finalBell.clip.length + 20f);
+                Invoke("EndGameSomewhere", SongVox.clip.length + finalBell.clip.length - 10.5f);
+                mainLoopSource.PlayDelayed(SongVox.clip.length + finalBell.clip.length);
                 vocalMusicInterrupt = false;
             }
         }
