@@ -11783,7 +11783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e60f618f0eda6a439a719a91d51e325, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScoreFormat: "{0}\xA2"
+  ScoreFormat: 'Pay: {0:C}'
 --- !u!114 &1216555096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11816,7 +11816,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "{0}\xA2"
+  m_Text: '{0:C}'
 --- !u!222 &1216555097
 CanvasRenderer:
   m_ObjectHideFlags: 0
