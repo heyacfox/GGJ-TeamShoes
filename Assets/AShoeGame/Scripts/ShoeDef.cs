@@ -3,20 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum ShoeType
-{
-    Male01,
-    Male02,
-    Male03,
-    Female01,
-    Female02,
-    Female03
-}
+
 
 public class ShoeDef : MonoBehaviour
 {
+    public enum ShoeType
+    {
+        Male01,
+        Male02,
+        Male03,
+        Female01,
+        Female02,
+        Female03
+    }
+
+    public enum ShoeState
+    {
+        None,
+        OnStack,
+        OffStack,
+        OnNpcStartFoot,
+        OnNpcTargetFoot
+    }
+
+    public enum ShoeSex
+    {
+        Any = 0,
+        MaleOnly,
+        FemaleOnly
+    }
 
     public Collider Coll;
+
+    public ShoeSex Sex = ShoeSex.Any;
+    public ShoeState State = ShoeState.None;
+
+    [Header("If blank, uses gameObject.name")]
+    public string ShoeName;
 
     // idea here is the NPC would Instantiate a copy of this shoe, set IsNpcCopy=true, and attach it to their foot. we probably only need the collider, def not the grabbable...
     internal bool IsNpcCopy = false;
@@ -32,6 +55,11 @@ public class ShoeDef : MonoBehaviour
 
     void Awake()
     {
+        State = ShoeState.None;
+
+        if (string.IsNullOrEmpty(ShoeName))
+            ShoeName = gameObject.name;
+
         if (IsNpcCopy)
         {
             if ((rb = GetComponent<Rigidbody>()) && rb.isKinematic) Debug.LogWarning("Kinematic rigidbody on NPC shoe?");

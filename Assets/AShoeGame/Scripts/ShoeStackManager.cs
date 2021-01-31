@@ -61,7 +61,6 @@ public class ShoeStackManager : MonoBehaviour
                         shoes[i, j, k].GetComponent<Rigidbody>().isKinematic = true;
                         var debug = shoes[i, j, k].gameObject.AddComponent<ShoeLooseMonitor>();
                         debug.Stack = this;
-                        int ii = i, jj = j, kk = k;
                         StartCoroutine(finishGrabLogic(i, j, k));
                     }
 
