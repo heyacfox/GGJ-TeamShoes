@@ -146,7 +146,7 @@ public class NpcManager : MonoBehaviour
                 return false;
         }
 
-        if (index >= shoeWorldOrder.Length)
+        if (index > shoeWorldOrder.Length)
             return false;
 
         const float BufferDist = 3;
