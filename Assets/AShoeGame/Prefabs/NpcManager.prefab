@@ -152,6 +152,10 @@ MonoBehaviour:
   CharacterSources:
   - {fileID: 5606776180487817476, guid: caa72029e4a377d499f15aebb4f714df, type: 3}
   - {fileID: 5698616892592911832, guid: ee87651ed9be30a449073f9df9e24763, type: 3}
+  - {fileID: 4283658257436239410, guid: 991308160c4b5a8418e079a5366c81ef, type: 3}
+  - {fileID: 3504584219144775043, guid: 6e81b80c3f157304fab02932908aee70, type: 3}
+  - {fileID: 3072175094261032837, guid: f54993015573d3d4091d8ce02ab65d26, type: 3}
+  - {fileID: 7137111069489741627, guid: 53c26ba449f544a4ebae1078d9807509, type: 3}
 --- !u!1 &4354624565279598029
 GameObject:
   m_ObjectHideFlags: 0
