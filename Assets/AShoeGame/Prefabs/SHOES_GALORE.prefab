@@ -59,6 +59,7 @@ MonoBehaviour:
   - {fileID: 1865212665966808154, guid: a78ea2b55cde34f4ebfce233cda52520, type: 3}
   - {fileID: 9213785767007803123, guid: ef3fce8e6aaaf1b4f9df99d472b0d47f, type: 3}
   - {fileID: 4742581541854233374, guid: 984f8e280df11a24cb04f6df614193f2, type: 3}
+  ShoeStack: {fileID: 0}
 --- !u!114 &89866304732693550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,3 +74,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Depth: 5
   Spacing: {x: 0.45, y: 0.17, z: 0.25}
+  BlockingVisual: {fileID: 393703426630183813, guid: e6792faed67888141b870d66af658500,
+    type: 3}

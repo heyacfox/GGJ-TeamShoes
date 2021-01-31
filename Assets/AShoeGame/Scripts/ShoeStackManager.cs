@@ -9,6 +9,8 @@ public class ShoeStackManager : MonoBehaviour
 
     public Vector3 Spacing = Vector3.one;
 
+    public GameObject BlockingVisual;
+
     ShoeDef[,,] shoes = new ShoeDef[0, 0, 0]; // order is layer, major axis (size = Depth), minor axis (size = round(Depth/2))
 
     Vector3 lastSpacing = Vector3.zero;
